@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Struk Pemesanan</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .struk {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      max-width: 500px;
+      width: 100%;
+      margin: 20px auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid rgba(255,255,255,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .struk::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, #3498db, #2ecc71);
+    }
+    
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+      font-weight: 600;
+      position: relative;
+      padding-bottom: 15px;
+    }
+    
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, #3498db, #2ecc71);
+      border-radius: 3px;
+    }
+    
+    p {
+      margin: 15px 0;
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #eee;
+    }
+    
+    p strong {
+      color: #555;
+      font-weight: 500;
+    }
+    
+    p span {
+      color: #2c3e50;
+      font-weight: 400;
+      text-align: right;
+    }
+    
+    #total {
+      font-weight: bold;
+      color: #27ae60;
+    }
+    
+    .back-btn {
+      display: block;
+      margin-top: 30px;
+      text-align: center;
+    }
+    
+    .back-btn a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      background: linear-gradient(90deg, #3498db, #2ecc71);
+      padding: 12px 25px;
+      border-radius: 50px;
+      display: inline-block;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    }
+    
+    .back-btn a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+    }
+    
+    .back-btn a::before {
+      content: "← ";
+    }
+    
+    @media (max-width: 600px) {
+      .struk {
+        padding: 30px 20px;
+      }
+      
+      p {
+        flex-direction: column;
+      }
+      
+      p span {
+        text-align: left;
+        margin-top: 5px;
+      }
+    }
+</style>
+</head>
+<body>
+  <div class="struk">
+    <h2>Struk Pemesanan</h2>
+    <p><strong>Nama:</strong> <span id="nama"></span></p>
+    <p><strong>Email:</strong> <span id="email"></span></p>
+    <p><strong>Telepon:</strong> <span id="telepon"></span></p>
+    <p><strong>Destinasi:</strong> <span id="destinasi"></span></p>
+    <p><strong>Tanggal Kunjungan:</strong> <span id="tanggal"></span></p>
+    <p><strong>Jumlah Tiket:</strong> <span id="jumlah"></span></p>
+    <p><strong>Total Harga:</strong> <span id="total"></span></p>
+    <p><strong>Metode Pembayaran:</strong> <span id="metode"></span></p>
+    <p><strong>Waktu Pemesanan:</strong> <span id="waktu"></span></p>
+    <div class="back-btn">
+      <a href="formpesan.html">← Kembali ke Form</a>
+    </div>
+  </div>
+  <script>
+    const data = JSON.parse(sessionStorage.getItem("strukData") || "{}");
+    document.getElementById("nama").textContent = data.nama || "-";
+    document.getElementById("email").textContent = data.email || "-";
+    document.getElementById("telepon").textContent = data.telepon || "-";
+    document.getElementById("destinasi").textContent = data.destinasi || "-";
+    document.getElementById("tanggal").textContent = data.tanggal || "-";
+    document.getElementById("jumlah").textContent = data.jumlah || "-";
+    document.getElementById("total").textContent = "Rp " + (data.total?.toLocaleString("id-ID") || "0");
+    document.getElementById("metode").textContent = data.metode || "-";
+    document.getElementById("waktu").textContent = data.waktu || "-";
+  </script>
+</body>
+</html>

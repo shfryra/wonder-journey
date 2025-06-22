@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Struk Pemesanan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 40px;
+    }
+
+    .struk {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    p {
+      margin: 8px 0;
+    }
+
+    .back-btn {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .back-btn a {
+      text-decoration: none;
+      color: #3498db;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="struk">
+    <h2>Struk Pemesanan</h2>
+    <p><strong>Nama:</strong> <span id="nama"></span></p>
+    <p><strong>Email:</strong> <span id="email"></span></p>
+    <p><strong>Telepon:</strong> <span id="telepon"></span></p>
+    <p><strong>Destinasi:</strong> <span id="destinasi"></span></p>
+    <p><strong>Tanggal Kunjungan:</strong> <span id="tanggal"></span></p>
+    <p><strong>Jumlah Tiket:</strong> <span id="jumlah"></span></p>
+    <p><strong>Total Harga:</strong> <span id="total"></span></p>
+    <p><strong>Metode Pembayaran:</strong> <span id="metode"></span></p>
+    <p><strong>Waktu Pemesanan:</strong> <span id="waktu"></span></p>
+
+    <div class="back-btn">
+      <a href="pemesanan.html">← Kembali ke Form</a>
+    </div>
+  </div>
+
+  <script>
+    const data = JSON.parse(sessionStorage.getItem("strukData") || "{}");
+
+    document.getElementById("nama").textContent = data.nama || "-";
+    document.getElementById("email").textContent = data.email || "-";
+    document.getElementById("telepon").textContent = data.telepon || "-";
+    document.getElementById("destinasi").textContent = data.destinasi || "-";
+    document.getElementById("tanggal").textContent = data.tanggal || "-";
+    document.getElementById("jumlah").textContent = data.jumlah || "-";
+    document.getElementById("total").textContent = "Rp " + (data.total?.toLocaleString("id-ID") || "0");
+    document.getElementById("metode").textContent = data.metode || "-";
+    document.getElementById("waktu").textContent = data.waktu || "-";
+  </script>
+</body>
+</html>

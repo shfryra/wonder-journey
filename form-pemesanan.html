@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Form Pemesanan Tiket</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('asset/bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-wrapper {
+      max-width: 380px;
+      margin: 80px auto;
+      padding: 30px 25px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      color: #fff;
+      text-align: left;
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 22px;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      border-color: #90caf9;
+      outline: none;
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .btn-submit {
+      margin-top: 30px;
+      width: 100%;
+      background-color: #66bb6a;
+      color: white;
+      padding: 14px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn-submit:hover {
+      background-color: #4caf50;
+    }
+
+    .home-button {
+      display: inline-block;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 8px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    p.harga, p.total {
+      margin: 5px 0 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <section class="form-wrapper">
+    <a href="bromo.html" class="home-button">← Kembali</a>
+    <h1>Pemesanan Tiket Wisata</h1>
+    <form action="simpan_pemesanan.php" method="POST" class="form-pesan">
+      <input type="hidden" name="destinasi" id="destinasiInput" />
+      <input type="hidden" name="harga" id="hargaInput" />
+      <input type="hidden" name="total" id="totalInput" />
+
+      <label for="nama">Nama Lengkap</label>
+      <input type="text" name="nama" id="nama" placeholder="Masukkan nama Anda" />
+
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" placeholder="Contoh: email@example.com" />
+
+      <label for="tanggal">Tanggal Kunjungan</label>
+      <input type="date" name="tanggal" id="tanggal" required />
+
+      <label for="jumlah">Jumlah Tiket</label>
+      <input type="number" name="jumlah" id="jumlah" min="1" value="1" required />
+
+      <label for="harga">Harga Paket</label>
+      <p id="hargaPaket" class="harga">Rp -</p>
+
+      <label for="total">Total Harga</label>
+      <p id="totalHarga" class="total">Rp -</p>
+
+      <button type="submit" class="btn-submit">Pesan Sekarang</button>
+    </form>
+  </section>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const destinasi = params.get("destinasi") || "tidak-diketahui";
+    document.getElementById("destinasiInput").value = destinasi;
+
+    const hargaPaketMap = {
+      "sunrise-bromo": 350000,
+      "camping-bromo": 850000,
+      "open-trip-bromo": 275000
+      // Tambah destinasi lain kalau ada
+    };
+
+    const harga = hargaPaketMap[destinasi] || 0;
+    const hargaPaketEl = document.getElementById("hargaPaket");
+    const totalHargaEl = document.getElementById("totalHarga");
+    const hargaInput = document.getElementById("hargaInput");
+    const totalInput = document.getElementById("totalInput");
+    const jumlahInput = document.getElementById("jumlah");
+
+    function formatRupiah(angka) {
+      return "Rp" + angka.toLocaleString("id-ID");
+    }
+
+    hargaPaketEl.textContent = harga > 0 ? formatRupiah(harga) : "Rp -";
+    hargaInput.value = harga;
+
+    function updateTotal() {
+      const jumlah = parseInt(jumlahInput.value) || 1;
+      const total = harga * jumlah;
+      totalHargaEl.textContent = formatRupiah(total);
+      totalInput.value = total;
+    }
+
+    jumlahInput.addEventListener("input", updateTotal);
+    updateTotal();
+  </script>
+</body>
+</html>
